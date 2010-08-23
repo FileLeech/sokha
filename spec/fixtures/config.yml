@@ -1,0 +1,108 @@
+global-options:
+  auth-user:
+    title: HTTP-Auth Username
+    type: string
+    default: admin
+    position: 1
+  auth-password:
+    title: HTTP-Auth Password
+    type: password
+    default: admin
+    position: 2
+  temporal-directory:  
+    title: Temporal directory
+    type: string
+    default: "~/sokha/temp/"
+    position: 3
+  incoming-directory: 
+    title: Incoming directory
+    type: string
+    default: "~/sokha/incoming/"
+    position: 4
+  timeout:
+    title: Limit time to get file URL (seconds)
+    type: integer
+    default: "6000"
+    position: 5
+  retry-policy:
+    title: Requeue automatically jobs with retryable errors
+    type: boolean
+    default: "true"
+    position: 6
+     
+apps:
+  plowshare:
+    commands:
+      get-module: 
+        command: plowdown -v2 --get-module %options "%url"
+        error-codes:
+          1: 
+            key: fatal
+            description: Fatal error
+            retry: false
+          2: 
+            key: unsupported_module
+            description: Module not supported
+            retry: false
+      download-info: 
+        command: plowdown -v2 --download-info-only="%%url|%%cookies|%%filename" %options "%url"
+        error-codes:
+          1: 
+            key: fatal
+            description: Fatal error
+            retry: false
+          2: 
+            key: unsupported_module
+            description: Module not supported
+            retry: false
+          3: 
+            key: dead_link
+            description: Dead link
+            retry: false
+          4: 
+            key: temporal
+            description: Temporal problem
+            retry: false
+          5: 
+            key: unknown
+            description: Unknown error
+            retry: true
+          6: 
+            key: timeout
+            description: Timeout limit reached
+            retry: true
+          7: 
+            key: network
+            description: Network problem
+            retry: true
+          8: 
+            key: password
+            description: Password required for this link 
+            retry: false
+            
+    modules:
+      rapidshare:
+        options:
+          auth-user:
+            title: Username (premium)
+            type: string
+            command-option: -a "%auth-user:%auth-password"
+            position: 1
+          auth-password:
+            title: Password (premium)
+            type: password
+            position: 2
+          
+      megaupload:
+        options:
+          auth-user:
+            title: Username (free/premium)
+            type: string
+            command-option: -a "%auth-user:%auth-password"
+            position: 1
+          auth-password:
+            title: Password (free/premium)
+            type: password
+            position: 2          
+        url_options:
+          password: "-p %password"

@@ -1,0 +1,72 @@
+<script>  
+  function toggle_job_checkboxes(selector) {
+    var checked = $$(selector + '::checked');
+    if (checked.length > 0) {
+      checked.each(function(checkbox) {
+        checkbox.checked = false;
+      });
+    } else {
+      $$(selector).each(function(checkbox) {
+        checkbox.checked = true;
+      });      
+    }      
+  }  
+  /*window.addEvent('domready', function() {    
+    toggle_job_checkboxes('.job_check');
+  });*/
+</script>
+
+<form action="/enqueue" method="POST">
+  <textarea name="urls" cols="80" rows="4"></textarea>
+  <br />
+  <input type="submit" value="Enqueue URLs" />
+</form>
+
+<% columns = %w{id url module state size %_done filepath actions} %>
+
+<% if jobs.empty? %>
+  <b>No jobs</b>
+<% else %>
+  <form method="post" action="/clear">
+    <input type="submit" name="clear" value="Clear" />
+    jobs marked as state
+    <select name="what">
+      <option value="done">done</option>
+      <option value="error">error (all)</option>
+      <option value="non_retryable">error (non retryable)</option>
+    </select>
+  </form>
+
+  <form method="post" action="/">
+    <%= queue_action_buttons %> checked jobs
+    <br />
+    <a href="#" onclick="toggle_job_checkboxes('.job_check'); return false;">Toggle selection</a>
+    <table>
+      <tr>
+        <% columns.each do |column| %>  
+          <th><%= column.gsub(/_/, ' ').capitalize %></th>
+        <% end %>
+      </tr>
+      <% jobs.each do |job| %>
+        <tr>
+          <td>
+            <input type="checkbox" class="job_check" name="job_ids[]" value="<%= job.id %>" />
+            <%= job.id %>
+          </td>
+          <td><%= link_to(job.url, job.url) %></td>
+          <td><%= content_tag(:i, job.module, :title => job.app) %></td>
+          <td>
+            <%= content_tag(:i, job.state, :title => h(workers[job].maybe_as { |w| w.stderr.join.strip })) %>
+            <% if job.state == "error" %>
+              (<%= content_tag(:i, job.error_key, :title => job.error_description) %>)
+            <% end %>
+          </td>
+          <td><%= job.file_size.maybe.to_human || "-" %></td>
+          <td><%= "%0.1f" % job.percentage_done %></td>
+          <td><%= job.filepath ? link_to(job.filename, "/file/#{job.id}/#{job.filename}") : "-" %></td>
+          <td><%= queue_action_buttons(job, :skip => [:download]) %></td>
+        </tr>
+      <% end %>
+    </table>
+  </form>
+<% end %>

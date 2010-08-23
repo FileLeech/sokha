@@ -1,0 +1,19 @@
+#!/usr/bin/ruby
+require 'rubygems'
+require 'daemons'
+require 'sokha'
+
+script = File.join(Sokha::RootDir, "lib/sokha/server_main.rb")
+options = {
+  :app_name => "sokhad",
+  :monitor => true, 
+  :backtrace => true, 
+  :log_output => true,
+  :multiple => false,
+  :ontop => false,
+  :dir_mode => :normal, 
+  :dir => File.expand_path("~/.sokha"),
+}
+
+Sokha.create_user_dir
+Daemons.run(script, options)
