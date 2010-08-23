@@ -1,0 +1,22 @@
+<% form_tag "/settings" do %>
+  <%= hidden_field_tag :_method, :value => 'put' %>
+  <h2>Global options</h2>
+  <% global_options.by_position.each do |go| %>
+    <%= erb :_setting, :locals => {:setting => go}, :layout => false %>
+    <br />
+  <% end %>
+    
+  <h2>Module options</h2>
+  <% Sokha::Setting.group_in_section(["apps"]).sort.each do |app_name, app_opts| %>
+    <h3><%= app_name.capitalize %></h3>
+    <% Sokha::Setting.group_in_section(["apps", app_name]).each do |mod_name, mod_opts| %>
+      <h4><%= mod_name.capitalize %></h4>  
+      <% mod_opts.sort_by(&:position).each do |mo| %>
+        <%= erb :_setting, :locals => {:setting => mo}, :layout => false %>
+        <br />
+      <% end %>
+    <% end %>
+  <% end %>
+   
+  <%= submit_tag "Save" %>  
+<% end %>

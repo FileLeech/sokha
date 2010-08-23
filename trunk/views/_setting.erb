@@ -1,0 +1,12 @@
+<%= label_tag(setting.title, :for => setting.name) %>
+
+<% if setting.type == "password" %>
+  <%= password_field_tag(:text, :id => setting.name, :name => setting.name, 
+                         :value => setting.value) %>
+<% elsif setting.type == "boolean" %>
+  <%= hidden_field_tag(setting.name, :value => "false") %>
+  <%= check_box_tag(setting.name, :id => setting.name, :value => "true", 
+                    :checked => setting.value == "true") %>
+<% else %> 
+  <%= input_tag(:text, :id => setting.name, :name => setting.name, :value => setting.value) %>
+<% end %>

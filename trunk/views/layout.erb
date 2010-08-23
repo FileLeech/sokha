@@ -1,0 +1,23 @@
+<html>
+<head>
+  <title>Sokha Queue Manager</title>
+  <script type="text/javascript" src="/javascript/mootools-1.2.4-core-yc.js"></script>
+</head>
+<body>
+  <% if request.path == "/" %>
+    Jobs queue
+  <% else %>
+    <%= link_to("Jobs queue", "/", :accesskey => "j") %>
+  <% end %>
+  |
+  <% if request.path == "/settings" %>
+    Settings
+  <% else %>
+    <%= link_to("Settings", "/settings", :accesskey => "s") %>
+  <% end %>
+  <br />
+  <%= render_flash(flash) %>
+  <br />
+  <%= yield %>
+</body>
+</html>
