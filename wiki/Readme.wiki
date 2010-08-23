@@ -15,6 +15,12 @@
 
 Using {{{rubygems}}} you don't need to worry about these dependencies except for the backend ({{{plowshare}}}), {{{ruby}}} and {{{rubygems}}}.
 
+== Old rubygems version ==
+
+{{{
+$ sudo gem update—system
+}}}
+
 = Install =
 
 == Create the gem ==
@@ -71,15 +77,13 @@ $ /path/to/sokhad start -t
 
 For now {{{sokha}}} only works with {{{plowshare}}}, but {{{plowshare}}} commands are not hardcoded, it should be possible to user other command-line downloaders, given they fulfill those requirerements:
 
-- Command-line application with no user interaction needed.
-- It returns the downloaded file in the standard output (and only that).
-- It has meaningful exit codes (so {{{sokha}}} can inform the user is something went wrong)
-- It is able to return the _fileURL_ and the session's cookies so {{{sokha}}} can make the file download.
-
-Note that {{{sokha}}} is still in development and these specifications can change anytime (to make room for more backends).
+ * Command-line application with no user interaction needed.
+ * It returns the downloaded file in the standard output (and only that).
+ * It has meaningful exit codes (so {{{sokha}}} can inform the user is something went wrong)
+ * It is able to return the _fileURL_ and the session's cookies so {{{sokha}}} can make the file download.
 
 The main configuration file should be the only thing to modify in _sokha_ to add support for other backends:
 
 http://code.google.com/p/sokha/source/browse/trunk/config.yml
 
-Take a look at the {{{apps.plowshare}}} section. Backend contributions most welcome.
+Take a look at the {{{apps.plowshare}}} section. Backend contributions most welcome. Note that {{{sokha}}} is still in development and these specifications can change anytime to make room for more backends.
