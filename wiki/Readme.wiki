@@ -1,0 +1,85 @@
+#summary How to install Sokha.
+#labels Featured,Phase-Requirements
+
+= Introduction =
+
+{{{Sokha}}} is a web frontend for [http://code.google.com/p/plowshare/ plowshare] that uses [http://www.sinatrarb.com/ Sinatra], a [http://www.ruby-lang.org/en/ Ruby] framework. In fact, _sokha_ does not only work with {{{plowshare}}}, as it's able to interface with (almost) any external command-line downloader.
+
+= Dependencies =
+
+ * [http://code.google.com/p/plowshare/ plowshare] (>= 0.9.4)
+ * [http://www.ruby-lang.org/en/ Ruby] (>= 1.8.6)
+ * [http://rubyforge.org/projects/rubygems/ Rubygems] (>= 1.2.0)
+ * [http://rubyeventmachine.com/ Eventmachine]
+ * [http://www.sinatrarb.com/ Sinatra]
+
+Using {{{rubygems}}} you don't need to worry about these dependencies except for the backend ({{{plowshare}}}), {{{ruby}}} and {{{rubygems}}}.
+
+= Install =
+
+== Create the gem ==
+
+First of all, make sure you have {{{subversion}}} installed to access the code repository. Then run:
+
+{{{
+$ svn checkout http://sokha.googlecode.com/svn/trunk/ sokha
+$ cd sokha
+$ gem build sokha.gemspec
+}}}
+
+And install the newly created gem in your user directory:
+
+{{{
+$ gem install --user-install sokha-VERSION.gem
+}}}
+
+Or, if you prefer, make it available to all your users:
+
+{{{
+$ sudo gem install --no-user-install sokha-VERSION.gem
+}}}
+
+= Start the server =
+
+== Find the {{{sokha}}} daemon executable ==
+
+If you installed it on your home directory, chances are it's to be found in {{{$HOME/.gem/ruby/1.8/bin}}}. If you installed it in your system the path varies (usually {{{/var/lib/gems/1.8/bin}}}). 
+
+Once you found it, add this bin path to your PATH variable (probably modifying {{{.bashrc}}}):
+
+{{{
+PATH=$PATH:/path/to/gems/bin
+}}}
+
+== Run the daemon ==
+
+{{{
+$ /path/to/sokhad start
+}}}
+
+And open your browser: http://localhost:4567 (admin/admin)
+
+== Debugging ==
+
+You run the server but the browser won't open the page. Probably something went wrong on the installation, try to run the daemon in the foreground (-t) and check the error messages:
+
+{{{
+$ /path/to/sokhad start -t
+}}}
+
+== Alternative backends ==
+
+For now {{{sokha}}} only works with {{{plowshare}}}, but {{{plowshare}}} commands are not hardcoded, it should be possible to user other command-line downloaders, given they fulfill those requirerements:
+
+- Command-line application with no user interaction needed.
+- It returns the downloaded file in the standard output (and only that).
+- It has meaningful exit codes (so {{{sokha}}} can inform the user is something went wrong)
+- It is able to return the _fileURL_ and the session's cookies so {{{sokha}}} can make the file download.
+
+Note that {{{sokha}}} is still in development and these specifications can change anytime (to make room for more backends).
+
+The main configuration file should be the only thing to modify in _sokha_ to add support for other backends:
+
+http://code.google.com/p/sokha/source/browse/trunk/config.yml
+
+Take a look at the {{{apps.plowshare}}} section. Backend contributions most welcome.
