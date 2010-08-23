@@ -15,7 +15,7 @@
 
 Using {{{rubygems}}} you don't need to worry about these dependencies except for the backend ({{{plowshare}}}), {{{ruby}}} and {{{rubygems}}}.
 
-== Old rubygems version ==
+== Update your rubygems version ==
 
 {{{
 $ sudo gem update—system
@@ -33,6 +33,8 @@ $ cd sokha
 $ gem build sokha.gemspec
 }}}
 
+== Install the gem ==
+
 And install the newly created gem in your user directory:
 
 {{{
@@ -49,7 +51,7 @@ $ sudo gem install --no-user-install sokha-VERSION.gem
 
 == Find the {{{sokha}}} daemon executable ==
 
-If you installed it on your home directory, chances are it's to be found in {{{$HOME/.gem/ruby/1.8/bin}}}. If you installed it in your system the path varies (usually {{{/var/lib/gems/1.8/bin}}}). 
+If you installed the gem on your home directory, chances are it's to be found in {{{$HOME/.gem/ruby/1.8/bin}}}. If you installed it in your system the path varies (check {{{/var/lib/gems/1.8/bin}}} or similar). 
 
 Once you found it, add this bin path to your PATH variable (probably modifying {{{.bashrc}}}):
 
@@ -67,23 +69,27 @@ And open your browser: http://localhost:4567 (admin/admin)
 
 == Debugging ==
 
-You run the server but the browser won't open the page. Probably something went wrong on the installation, try to run the daemon in the foreground (-t) and check the error messages:
+You run the daemon but the browser won't open the page. Probably something went wrong on the installation, try to run the daemon in the foreground and check the error messages:
 
 {{{
 $ /path/to/sokhad start -t
 }}}
 
-== Alternative backends ==
+= Alternative backends =
 
-For now {{{sokha}}} only works with {{{plowshare}}}, but {{{plowshare}}} commands are not hardcoded, it should be possible to user other command-line downloaders, given they fulfill those requirerements:
+For now {{{sokha}}} only works with {{{plowshare}}}, but this support is not  hardcoded, it should be possible to user other command-line downloaders, given they fulfill those requirerements:
 
  * Command-line application with no user interaction needed.
  * It returns the downloaded file in the standard output (and only that).
- * It has meaningful exit codes (so {{{sokha}}} can inform the user is something went wrong)
- * It is able to return the _fileURL_ and the session's cookies so {{{sokha}}} can make the file download.
+ * It has meaningful exit codes (so {{{sokha}}} can inform the user is something went wrong). 
+ * It is able to return the _file-URL_ and the session's cookies (as a Netscape/mozilla text file) so {{{sokha}}} can make the actual file download.
+
+== Contribute ==
 
 The main configuration file should be the only thing to modify in _sokha_ to add support for other backends:
 
 http://code.google.com/p/sokha/source/browse/trunk/config.yml
 
-Take a look at the {{{apps.plowshare}}} section. Backend contributions most welcome. Note that {{{sokha}}} is still in development and these specifications can change anytime to make room for more backends.
+Take a look at the {{{apps.plowshare}}} section. Note that {{{sokha}}} is still in development and these specifications can change anytime to make room for more backends.
+
+Backend contributions most welcome.
