@@ -94,15 +94,15 @@ class Sokha::Job
   end
   
   def update_error_fields(status)
-    app_opts = Sokha::Setting.appconfig["apps"][self.app]
+    app_opts = Sokha::Setting.config["apps"][self.app]
     info = app_opts["commands"]["download-info"]["error-codes"].maybe[status]
-    key, description, retry0 = if info
+    key, description, retryable = if info
       info.values_at("key", "description", "retry")
     else
       ["unknown", "Unknown error", false]
     end    
     self.event(:finish_with_error, :error_key => key, 
-      :error_description => description, :error_retry => retry0)  
+      :error_description => description, :error_retry => retryable)  
   end
   
   def remove_file
