@@ -49,8 +49,8 @@ class Sokha::Setting
   end
 
   def self.group_in_section(*path)
-    self.in_section(path).group_by do |setting|
-      setting.name.split(".")[path.size]
+    self.in_section(*path).group_by do |setting|
+      setting.name.split(".")[Array(path).flatten.size]
     end
   end
   
