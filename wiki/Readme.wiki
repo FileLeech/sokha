@@ -59,9 +59,9 @@ $ sudo gem install --no-user-install sokha-VERSION.gem
 
 == Find the {{{sokha}}} daemon executable ==
 
-If you installed the gem on your home directory, chances are it's to be found in {{{$HOME/.gem/ruby/1.8/bin}}}. If you installed it in your system, the path varies (check {{{/var/lib/gems/1.8/bin}}} or similar). 
+If you installed the gem on your home directory, chances are it's to be found in {{{$HOME/.gem/ruby/1.8/bin}}}. If you installed it in your system, the path varies (run {{{gem env}}} and look for the _EXECUTABLE DIRECTORY_ variable). 
 
-Once you found it, add this bin path to your PATH variable (probably modifying {{{.bashrc}}}):
+Once you found the path to the daemon, add it to your PATH variable (probably modifying {{{.bashrc}}}):
 
 {{{
 PATH=$PATH:/path/to/gems/bin
@@ -70,7 +70,7 @@ PATH=$PATH:/path/to/gems/bin
 == Run the daemon ==
 
 {{{
-$ /path/to/sokhad start
+$ sokhad start
 }}}
 
 And open your browser: http://localhost:4567 (admin/admin)
@@ -80,7 +80,13 @@ And open your browser: http://localhost:4567 (admin/admin)
 You run the daemon but the browser won't open the page. Probably something went wrong on the installation, try to run the daemon in the foreground and check the error messages:
 
 {{{
-$ /path/to/sokhad start -t
+$ sokhad start -t
+}}}
+
+== Stop the daemon == 
+
+{{{
+$ sokhad stop
 }}}
 
 = Alternative backends =
