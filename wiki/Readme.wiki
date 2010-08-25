@@ -3,7 +3,7 @@
 
 = Introduction =
 
-{{{Sokha}}} is a web frontend for [http://code.google.com/p/plowshare/ plowshare] that uses [http://www.sinatrarb.com/ Sinatra], a [http://www.ruby-lang.org/en/ Ruby] framework. In fact, _sokha_ does not only work with {{{plowshare}}}, as it's able to interface with (almost) any external command-line downloader.
+{{{Sokha}}} is a web frontend for external file-sharing downloaders programmed with [http://www.sinatrarb.com/ Sinatra], a [http://www.ruby-lang.org/en/ Ruby] framework. 
 
 || Backend || Support ||
 || _plowshare_ || _complete_ ||
