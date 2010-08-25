@@ -40,50 +40,19 @@ apps:
       get-module: 
         command: plowdown -v2 --get-module %options "%url"
         error-codes:
-          1: 
-            key: fatal
-            description: Fatal error
-            retry: false
-          2: 
-            key: unsupported_module
-            description: Module not supported
-            retry: false
+          1: {key: fatal, description: Fatal error, retry: false}
+          2: {key: unsupported_module, description: Module not supported, retry: false}
       download-info: 
         command: plowdown -v2 --download-info-only="%%url|%%cookies|%%filename" %options "%url"
         error-codes:
-          1: 
-            key: fatal
-            description: Fatal error
-            retry: false
-          2: 
-            key: unsupported_module
-            description: Module not supported
-            retry: false
-          3: 
-            key: dead_link
-            description: Dead link
-            retry: false
-          4: 
-            key: temporal
-            description: Temporal problem
-            retry: false
-          5: 
-            key: unknown
-            description: Unknown error
-            retry: true
-          6: 
-            key: timeout
-            description: Timeout limit reached
-            retry: true
-          7: 
-            key: network
-            description: Network problem
-            retry: true
-          8: 
-            key: password
-            description: Password required for this link 
-            retry: false
-            
+          1: {key: fatal, description: Fatal error, retry: false}
+          2: {key: unsupported_module, description: Module not supported, retry: false}
+          3: {key: dead_link, description: Dead link, retry: false}
+          4: {key: temporal, description: Temporal problem with the link, retry: false}
+          5: {key: unknown, description: Unknown error, retry: true}
+          6: {key: timeout, description: Timeout limit reached, retry: true}
+          7: {key: network, description: Network problem, retry: true}
+          8: {key: password, description: Password required for this link, retry: false}            
     modules:
       rapidshare:
         options:
