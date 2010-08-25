@@ -34,7 +34,7 @@ apps:
   plowshare:
     commands:
       get-module: 
-        command: plowdown -v2 --get-module %options "%url"
+        command: plowdown -q --get-module %options "%url"
         error-codes:
           1: 
             key: fatal
@@ -45,7 +45,7 @@ apps:
             description: Module not supported
             retry: false
       download-info: 
-        command: plowdown -v2 --download-info-only="%%url|%%cookies|%%filename" %options "%url"
+        command: plowdown -q --download-info-only="%%url|%%cookies|%%filename" %options "%url"
         error-codes:
           1: 
             key: fatal
