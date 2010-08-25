@@ -5,6 +5,9 @@
 
 {{{Sokha}}} is a web frontend for [http://code.google.com/p/plowshare/ plowshare] that uses [http://www.sinatrarb.com/ Sinatra], a [http://www.ruby-lang.org/en/ Ruby] framework. In fact, _sokha_ does not only work with {{{plowshare}}}, as it's able to interface with (almost) any external command-line downloader.
 
+|| Backend || Support ||
+|| _plowshare_ || _complete_ ||
+
 = Dependencies =
 
  * [http://code.google.com/p/plowshare/ plowshare] (>= 0.9.4)
@@ -17,7 +20,7 @@ Using {{{rubygems}}} you don't need to worry about these dependencies except for
 
 == Update your rubygems version ==
 
-You will need rubygems >= 1.3.6 to install sokha. Update your current version:
+You will need {{{rubygems}}} >= 1.3.6 to install {{{sokha}}}. If you have an older version installed, update it:
 
 {{{
 $ sudo gem update—system
@@ -79,12 +82,11 @@ $ /path/to/sokhad start -t
 
 = Alternative backends =
 
-For now {{{sokha}}} only works with {{{plowshare}}}, but this support is not  hardcoded, it should be possible to user other command-line downloaders, given they fulfill those requirerements:
+For now {{{sokha}}} only works with {{{plowshare}}}, but this support is not  hardcoded, it should be possible to user other command-line downloaders, given that it:
 
- * Command-line application with no user interaction needed.
- * It returns the downloaded file in the standard output (and only that).
- * It has meaningful exit codes (so {{{sokha}}} can inform the user is something went wrong). 
- * It is able to return the _file-URL_ and the session's cookies (as a Netscape/mozilla text file) so {{{sokha}}} can make the actual file download.
+ * is a command-line application with no user interaction needed.
+ * is able to return the file URL (not the file itself) and the session's cookies (as a Netscape/mozilla text file) so {{{sokha}}} can make the actual file download.
+ * (desirable) has meaningful exit codes (so {{{sokha}}} can inform the user what went wrong). 
 
 == Contribute ==
 
