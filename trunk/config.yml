@@ -29,10 +29,6 @@ global-options:
     type: boolean
     default: "true"
     position: 6 
-#  limit-rate:
-#    title: Limit download rate (KBs)
-#    type: integer
-#    position: 7
 
 apps:
   plowshare:
@@ -85,7 +81,7 @@ apps:
           auth-user:
             title: Username(free)
             type: string
-            command-option: -a "%auth-user:%auth-password"
+            command-option: -b "%auth-user:%auth-password"
             position: 1
           auth-password:
             title: Password (free)

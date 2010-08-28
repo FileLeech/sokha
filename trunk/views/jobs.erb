@@ -16,16 +16,17 @@
   });*/
 </script>
 
+<strong>Urls:</strong>
 <form action="/enqueue" method="POST">
   <textarea name="urls" cols="80" rows="4"></textarea>
   <br />
-  <input type="submit" value="Enqueue URLs" />
+  <input type="submit" value="Enqueue" />
 </form>
 
 <% columns = %w{id url module state size %_done filepath actions} %>
 
 <% if jobs.empty? %>
-  <b>No jobs</b>
+  <i>No jobs</i>
 <% else %>
   <form method="post" action="/clear">
     <input type="submit" name="clear" value="Clear" />
