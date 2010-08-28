@@ -15,7 +15,7 @@ describe Sokha::Job do
       job2.should_not be_valid    
     end
     
-    it "that filepath is nil or length > 1" do
+    it "that filepath is null or with length > 1" do
       Factory.build(:job, :filepath => nil).should be_valid
       Factory.build(:job, :filepath => "").should_not be_valid
       Factory.build(:job, :filepath => "a").should be_valid
@@ -140,9 +140,7 @@ describe Sokha::Job do
     describe "with no file" do
       before { @job = Factory(:job, :filepath => nil) }
       
-      it "should do nothing" do
-        @job.remove_file                
-      end
+      it "should do nothing" { @job.remove_file }
     end
     
     describe "with file" do
@@ -152,6 +150,7 @@ describe Sokha::Job do
       end
       
       it "should remove file" do
+        File.exists?(@tempfile.path).should be_true
         @job.remove_file
         File.exists?(@tempfile.path).should be_false           
       end
