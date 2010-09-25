@@ -1,4 +1,3 @@
-open("/tmp/a.a", "w") { |f| f.write("hola\n") }
 require 'dm-migrations'
 require 'trollop'
 require 'fileutils'
@@ -22,10 +21,7 @@ if options[:reset_database] || !File.exists?(dbfile)
   Sokha::Setting.reset
 end
 
-#Sokha::QueueServer.setting = Sokha::Setting
 Sokha::Job.all_by_state(:active).each { |job| job.event(:requeue) }
-#Job.add_urls("http://rapidshare.com/files/xxx250334676/The.Walking.Dead.001.cbr")
-
 Sokha::QueueServer.http_auth_basic = Sokha::Setting.get_http_auth
 
 loop do 
