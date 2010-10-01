@@ -1,4 +1,6 @@
+require 'active_support/all' 
 require 'sinatra/base'
+require 'sinatra_more/support_lite'
 require "sinatra/reloader" #if development?
 require 'sinatra_more/markup_plugin'
 require 'erb'
