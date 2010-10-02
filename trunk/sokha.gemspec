@@ -17,7 +17,7 @@ Gem::Specification.new do |s|
     %w{archive_stream.rb helpers.rb job_downloader.rb server_main.rb 
        extensions.rb job.rb server.rb setting.rb}.map { |p| File.join("lib/sokha/", p) }  
   s.homepage = "http://github.com/tokland/sokha"
-  s.rdoc_options = %w{--line-numbers --inline-source --title Sokha --main README.markdown}
+  #s.rdoc_options = %w{--line-numbers --inline-source --title Sokha --main README.markdown}
   s.require_paths = ["lib"]
   s.summary =  "Web queue manager for file-sharing (Megaupload, Rapidshare, ...) applications"
   %w{daemons eventmachine em-http-request dm-core dm-timestamps dm-is-state_machine 
